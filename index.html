@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-black text-white">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>F1 Timeline</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html, body {
+            height: 100%;
+        }
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.4) translateY(30px);
+            filter: blur(6px);
+        }
+        .modal-enter-active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            filter: blur(0);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .modal-exit-active {
+            opacity: 0;
+            transform: scale(0.4) translateY(30px);
+            filter: blur(6px);
+            transition: all 0.4s ease;
+        }
+        .rich-gradient {
+            background-image: linear-gradient(to bottom right, #0f0f0f, #1a1a1a, #000);
+        }
+        .rich-glow {
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.7), 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        .rich-card {
+            background: linear-gradient(to bottom, #1a1a1a, #0d0d0d);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+        }
+        .neon-border {
+            box-shadow: 0 0 10px rgba(255, 30, 30, 0.8), inset 0 0 8px rgba(255, 60, 60, 0.5);
+        }
+        .neon-modal {
+            background: #ffffff;
+            border: 2px solid rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.9), 0 0 50px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body class="min-h-screen font-sans rich-gradient text-white px-6">
+<div id="preloader" class="fixed inset-0 bg-black flex items-center justify-center z-50">
+    <div class="w-20 h-20 border-4 border-t-transparent border-red-600 rounded-full animate-spin"></div>
+</div>
+
+<!-- NAVBAR WITH DROPDOWN -->
+<nav class="w-full flex justify-start items-center h-14 mb-6 relative">
+    <div class="relative">
+        <button id="menuToggle" class="w-10 h-10 ml-2 bg-red-700 rounded-md flex items-center justify-center shadow-lg hover:scale-105 transition">
+            <span class="text-white text-xl">☰</span>
+        </button>
+        <div id="dropdownMenu" class="hidden absolute left-0 mt-2 w-40 bg-zinc-900 border border-zinc-700 rounded shadow-lg">
+            <a href="contacts.html" class="block px-4 py-2 text-white hover:bg-red-600 transition">Наши контакты</a>
+        </div>
+    </div>
+</nav>
+
+<header class="text-center mb-10">
+    <h1 class="text-5xl font-light text-white/70 tracking-wide drop-shadow-lg">
+        The Development of Formula 1 Cars
+    </h1>
+</header>
+
+<main class="relative flex flex-col items-center mb-16">
+    <div class="absolute top-1/2 w-full h-1 bg-red-600 z-0 rich-glow" style="transform: translateY(-50%)"></div>
+    <div id="timeline" class="flex justify-center items-center gap-24 relative z-10 h-64 overflow-x-auto px-4"></div>
+    <div
+            id="modal"
+            class="hidden neon-modal absolute top-0 left-1/2 transform -translate-x-1/2 text-black rounded-2xl shadow-2xl p-8 w-[500px] z-20"
+    >
+        <div class="flex justify-between items-center mb-4">
+            <h2 id="modal-title" class="text-2xl font-semibold text-red-600">Title</h2>
+            <button onclick="closeModal()" class="text-black font-bold text-xl">✕</button>
+        </div>
+        <div id="modal-content" class="min-h-[120px] text-center font-medium text-zinc-800 text-lg leading-relaxed"></div>
+        <div class="flex justify-between mt-6">
+            <button onclick="prevCard()" class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-full text-lg">←</button>
+            <button onclick="nextCard()" class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-full text-lg">→</button>
+        </div>
+    </div>
+</main>
+
+<section class="px-4 max-w-screen-xl mx-auto mb-16">
+    <h3 class="text-2xl text-red-500 font-semibold mb-6 text-center">Latest News</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="rich-card text-white rounded-xl shadow-xl p-8 transition-transform hover:scale-[1.03]">
+            <div class="h-44 bg-zinc-700 mb-6 rounded-md rich-glow"></div>
+            <h4 class="text-xl font-semibold mb-2 text-red-500">News Title 1</h4>
+            <p class="text-base text-zinc-300">F1 teams battle with innovation in engine cooling.</p>
+        </div>
+        <div class="rich-card text-white rounded-xl shadow-xl p-8 transition-transform hover:scale-[1.03]">
+            <div class="h-44 bg-zinc-700 mb-6 rounded-md rich-glow"></div>
+            <h4 class="text-xl font-semibold mb-2 text-red-500">News Title 2</h4>
+            <p class="text-base text-zinc-300">Carbon composite chassis shaping the 80s era dominance.</p>
+        </div>
+        <div class="rich-card text-white rounded-xl shadow-xl p-8 transition-transform hover:scale-[1.03]">
+            <div class="h-44 bg-zinc-700 mb-6 rounded-md rich-glow"></div>
+            <h4 class="text-xl font-semibold mb-2 text-red-500">News Title 3</h4>
+            <p class="text-base text-zinc-300">Why turbochargers ruled the late 70s and early 80s.</p>
+        </div>
+    </div>
+</section>
+
+<script>
+    const data = {
+        start: ["Intro to Formula Racing", "Pre-F1 Competitions", "Origins of the FIA"],
+        "50s": ["Ferrari 500", "Mercedes W196", "Early Aerodynamics"],
+        "60s": ["Lotus Innovations", "Safety Begins", "Slick Tires Appear"],
+        "70s": ["Ground Effect", "Turbocharging", "Sponsorship Era"],
+        "80s": ["Turbo Dominance", "Carbon Fiber Chassis", "Electronics"],
+        "90s": ["Active Suspension", "V10 Engines", "Modern Safety"],
+        quiz: ["Take the Quiz", "Leaderboard", "Share Results"],
+    };
+
+    const labels = {
+        start: "Start",
+        "50s": "50s",
+        "60s": "60s",
+        "70s": "70s",
+        "80s": "80s",
+        "90s": "90s",
+        quiz: "Quiz",
+    };
+
+    const timeline = document.getElementById("timeline");
+    const modal = document.getElementById("modal");
+    const modalContent = document.getElementById("modal-content");
+    const modalTitle = document.getElementById("modal-title");
+
+    let currentKey = null;
+    let currentIndex = 0;
+
+    window.addEventListener("load", () => {
+        setTimeout(() => {
+            document.getElementById("preloader").style.display = "none";
+        }, 2000);
+    });
+
+    Object.keys(labels).forEach((key) => {
+        const point = document.createElement("div");
+        point.className =
+            "w-14 h-14 rounded-full border-4 border-zinc-800 bg-red-700 neon-border flex items-center justify-center text-sm font-semibold shadow-xl cursor-pointer transition-all hover:scale-125 hover:brightness-110 hover:shadow-red-600";
+        point.innerText = labels[key];
+        point.onclick = () => openModal(key);
+        timeline.appendChild(point);
+    });
+
+    function openModal(key) {
+        currentKey = key;
+        currentIndex = 0;
+        modalTitle.innerText = labels[key];
+        modalContent.innerText = data[key][0];
+        modal.classList.remove("hidden");
+        modal.classList.remove("modal-exit-active");
+        modal.classList.add("modal-enter");
+        setTimeout(() => modal.classList.add("modal-enter-active"), 10);
+    }
+
+    function closeModal() {
+        modal.classList.remove("modal-enter-active");
+        modal.classList.add("modal-exit-active");
+        setTimeout(() => {
+            modal.classList.add("hidden");
+        }, 300);
+    }
+
+    function nextCard() {
+        currentIndex = (currentIndex + 1) % data[currentKey].length;
+        modalContent.innerText = data[currentKey][currentIndex];
+    }
+
+    function prevCard() {
+        currentIndex = (currentIndex - 1 + data[currentKey].length) % data[currentKey].length;
+        modalContent.innerText = data[currentKey][currentIndex];
+    }
+
+    // Navbar dropdown toggle
+    document.getElementById("menuToggle").addEventListener("click", () => {
+        const menu = document.getElementById("dropdownMenu");
+        menu.classList.toggle("hidden");
+    });
+</script>
+</body>
+</html>

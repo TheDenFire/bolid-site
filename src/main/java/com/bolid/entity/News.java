@@ -2,6 +2,8 @@ package com.bolid.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.io.Serial;
 import java.time.LocalDateTime;
 
 @Data
@@ -10,7 +12,7 @@ import java.time.LocalDateTime;
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(name = "title")
     private String title;

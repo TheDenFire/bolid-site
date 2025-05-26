@@ -9,7 +9,7 @@ import lombok.Data;
 public class TelegramUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(name = "telegram_id", unique = true)
     private Long telegramId;

@@ -5,9 +5,9 @@ meta:
     version: 17
 build:
   artifacts:
-    target/*.jar: /bolid-site-0.0.1-SNAPSHOT
+    target/*.jar: /
   args: 'spring-boot:repackage '
 run:
-  jarName: target/bolid-site-0.0.1-SNAPSHOT.jar
+  jarName: bolid-site-0.0.1-SNAPSHOT.jar
   persistenceMount: /data
   containerPort: 8080

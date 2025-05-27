@@ -50,6 +50,7 @@
     <div class="w-20 h-20 border-4 border-t-transparent border-red-600 rounded-full animate-spin"></div>
 </div>
 
+<!-- NAVBAR -->
 <nav class="w-full flex justify-start items-center h-14 mb-6 relative">
     <div class="relative">
         <button id="menuToggle" class="w-10 h-10 ml-2 bg-red-700 rounded-md flex items-center justify-center shadow-lg hover:scale-105 transition">
@@ -71,12 +72,12 @@
     <div class="absolute top-1/2 w-full h-1 bg-red-600 z-0 rich-glow" style="transform: translateY(-50%)"></div>
     <div id="timeline" class="flex justify-center items-center gap-24 relative z-10 h-64 overflow-x-auto px-4"></div>
     <div id="modal"
-         class="hidden neon-modal absolute top-0 left-1/2 transform -translate-x-1/2 text-black rounded-2xl shadow-2xl p-8 w-[500px] z-20">
+         class="hidden neon-modal absolute top-0 left-1/2 transform -translate-x-1/2 text-black rounded-2xl shadow-2xl p-8 w-[700px] z-20">
         <div class="flex justify-between items-center mb-4">
             <h2 id="modal-title" class="text-2xl font-semibold text-red-600">Title</h2>
             <button onclick="closeModal()" class="text-black font-bold text-xl">✕</button>
         </div>
-        <div id="modal-content" class="min-h-[120px] text-center font-medium text-zinc-800 text-lg leading-relaxed"></div>
+        <div id="modal-content" class="min-h-[250px] text-left font-medium text-zinc-800 text-lg leading-relaxed space-y-4"></div>
         <div class="flex justify-between mt-6">
             <button onclick="prevCard()" class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-full text-lg">←</button>
             <button onclick="nextCard()" class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-full text-lg">→</button>
@@ -91,18 +92,150 @@
 
 <script>
     const data = {
-        start: ["Intro to Formula Racing", "Pre-F1 Competitions", "Origins of the FIA"],
-        "50s": ["Ferrari 500", "Mercedes W196", "Early Aerodynamics"],
-        "60s": ["Lotus Innovations", "Safety Begins", "Slick Tires Appear"],
-        "70s": ["Ground Effect", "Turbocharging", "Sponsorship Era"],
-        "80s": ["Turbo Dominance", "Carbon Fiber Chassis", "Electronics"],
-        "90s": ["Active Suspension", "V10 Engines", "Modern Safety"],
-        quiz: ["Take the Quiz", "Leaderboard", "Share Results"],
+        start: [
+            `<div>
+      <img src="img/start1.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>На рассвете Формулы 1, когда первые старты ещё не сопровождались телекамерами и трансляциями, болиды выглядели как ожившие истребители.
+      Их обвивали алюминиевые кузова, собранные вручную по образу и подобию авиационных фюзеляжей. Пилоты сидели в открытых кокпитах,
+      словно летчики в кабинах времён войны — с кожаными шлемами и очками от ветра. Эти машины не прощали ошибок, но открывали дверь в новую эпоху — эпоху скорости.</p>
+    </div>`,
+            `<div>
+      <img src="img/start2.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>Технологии, на которых держалась первая Формула-1, рождались далеко от трасс — в ангарах, где строили боевые самолёты.
+      Стальные трубчатые рамы болидов были братьями каркасов Spitfire и Messerschmitt, а двигатели по звуку и мощности напоминали авиационные моторы.
+      Даже топливо — взрывоопасные смеси метанола и масла — пришло из арсенала ВВС. Формула-1 унаследовала не только форму, но и дух времени.</p>
+    </div>`,
+            `<div>
+      <p>Эти машины не создавались по чертежам корпораций — они рождались в небольших мастерских, где инженеры были поэтами железа.
+      Конструкторы собирали болиды из доступных компонентов: подвеска от грузовиков, тормоза от мотоциклов, рулевое — как у довоенных седанов.
+      Но вместе они складывались в гоночный организм, способный мчаться на грани возможностей. Это был век интуиции, а не симуляций — эпоха инженерной смелости.</p>
+    </div>`
+        ],
+        "50s": [
+            `<div>
+      <img src="img/51s.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>В 1950-х годах болид Формулы-1 был собран буквально из осколков Второй мировой. Его рама — это стальная трубчатая конструкция, скопированная с планеров и боевых самолётов. Обшивка — алюминий, который когда-то покрывал крылья и фюзеляжи истребителей. А в сердце машины — двигатель, родственник авиационных монстров: рядные шестицилиндровые и даже V12, ревущие, как моторы Spitfire.
+Гоночный автомобиль этого десятилетия был не столько произведением автопрома, сколько летающей машиной, придавленной к земле. Он не знал аэродинамики и не думал о безопасности — он был лишь попыткой приручить силу, рождённую для войны, и направить её на асфальт.</p>
+    </div>`,
+            `<div>
+      <img src="img/52s.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>Но не только небо диктовало форму первых болидов. Подвеска перекочевала с довоенных легковушек: простые листовые рессоры, знакомые по Ford Model A. Задний мост — жёсткая балка, как на грузовиках. Колёса — спицованные, словно снятые с мотоцикла Brough Superior. Рулевое — механика от автомобилей 1930-х, и даже тормоза были барабанными, как у Fiat Balilla.
+Инженеры тех лет собирали свои машины как мастера из советских гаражей: из всего, что было под рукой, но с пониманием — что именно сработает на трассе. Это был мост между гражданской инженерией и зарождающейся гоночной наукой.
+</p>
+    </div>`,
+            `<div>
+      <img src="img/53s.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>Пилот Формулы-1 в 1950-х был не гонщиком в привычном смысле. Он был ближе к лётчику — в кожаном шлеме, с очками от ветра, окружённый тахометрами и ручными приборами, как в кабине Auto Union. В кокпите не было защиты, не было ремней — только руль, мотор, и тишина перед стартом.
+Даже топливо в этих машинах было заимствовано у авиации: взрывоопасные смеси метанола и масла, рассчитанные на максимальную отдачу. Каждая гонка напоминала полёт на бреющем — на пределе возможностей, с непредсказуемым исходом. И в этом был весь азарт эпохи.
+
+</p>
+    </div>`
+        ],
+        "60s": [
+            `<div>
+      <img src="img/61s.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>1960-е стали моментом, когда Формула-1 наконец-то повернулась лицом к науке. Главное открытие — двигатель больше не спереди. Теперь он позади пилота, как у Auto Union в 1930-х. Эта перемена кардинально сменила баланс машины, улучшила управление и открыла дорогу будущим аэродинамическим чудесам. Ferrari сопротивлялась, но даже она сдалась — и в 1961-м впервые вышла на старт с заднемоторной компоновкой.
+Теперь гонщик не управлял танком на колёсах — он вёл ракету, сбалансированную и выверенную, где каждый килограмм массы имел значение.
+</p>
+    </div>`,
+            `<div>
+      <img src="img/62s.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>Формула-1 заимствовала не только идею с расположением мотора. Сам кузов теперь строился по авиационному принципу: монокок — жёсткая несущая капсула из алюминиевых листов, как кабина у Cessna. Это не просто про жёсткость — это про выживание. Монокок становился коконом для пилота, зарождающим элементом безопасности, который ещё десятилетия будет спасать жизни.
+Именно в этот момент Формула-1 начала выходить из кустарной инженерии в промышленную эпоху: с испытаниями, расчётами и чётким пониманием, что значит быть быстрым и живым.
+
+</p>
+    </div>`,
+            `<div>
+      <img src="img/63s.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>В 1960-х в Формуле-1 впервые зашевелился воздух. Появились спойлеры, крылья, первые попытки управлять потоком. Это был не хаос, а первая проба — адаптация знаний, накопленных в авиации, теперь направленных вниз: не взлететь, а прилипнуть к трассе.
+К тому же — дисковые тормоза, реечное рулевое, независимая подвеска, композитные шлемы, огнеупорные костюмы Nomex. Всё это — не косметика, а первый пласт научной революции. Если 1950-е были гонками мастеров, то 1960-е стали гонками инженеров.
+
+</p>
+    </div>`
+        ],
+        "70s": [
+            `<div>
+      <img src="img/71s.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>В 1970-х Формула-1 перестала бороться с воздухом — и начала использовать его как союзника. Инженеры перевернули логику: вместо подъёмной силы, как у самолёта, они начали создавать прижимную. Так родился ground effect — эффект прижатия, когда днище машины втягивает её к трассе. Болид словно прилипал к асфальту, проходя повороты с нечеловеческой скоростью.
+Lotus построил юбки, NASA дала формулы, и гонки навсегда изменились. Теперь воздух был не только врагом, но и оружием.
+
+</p>
+    </div>`,
+            `<div>
+      <img src="img/72s.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>Старый металл больше не справлялся. Наступила эпоха новых материалов: углеволокно, стеклоткань, сэндвич-панели — технологии, пришедшие из авиастроения Boeing и гонок Can-Am. Болиды стали легче, прочнее, опаснее. Композитная кожа кузова сочетала в себе гибкость и жёсткость, а каркас скрывал топливные баки, упакованные в кевлар и резину — уроки из военной авиации.
+Теперь гоночная машина была как истребитель без крыльев — тонко рассчитанный снаряд из высокотехнологичных материалов.
+
+
+</p>
+    </div>`,
+            `<div>
+      <img src="img/73s.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>В это десятилетие почти каждый компонент болида прошёл трансформацию. Шины — гладкие слики, рождённые в драг-рейсинге, обеспечивали сцепление, о котором в 60-х мечтать не могли. Двигатели Cosworth DFV становились частью конструкции, не просто мотором, а несущим элементом. Подвеска с двойными рычагами — как у спорткаров Le Mans — делала поведение машины на трассе острым, как скальпель.
+Формула-1 стала не просто соревнованием машин. Это была инженерная олимпиада — и каждый болид был дипломной работой всего десятилетия.
+
+
+</p>
+    </div>`
+        ],
+        "80s":[
+            `<div>
+      <img src="img/81s.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>В 1980-е Формула-1 впервые по-настоящему вышла из-под контроля. Турбомоторы с бешеным давлением — 1,5-литровые двигатели, способные развивать более 1000 л.с. — превращали болиды в ракеты на колёсах. Они не ехали — они взрывались вперёд. Технологии турбонаддува пришли из авиации и промышленного дизеля, а управляли всем уже не механики, а электронные блоки ECU — микрочипы от Bosch и Magneti Marelli.
+Это была гонка не за секунды — за контроль. За то, кто успеет приручить монстра до следующего поворота.
+
+
+</p>
+    </div>`,
+            `<div>
+      <img src="img/82s.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>Восьмидесятые стали эпохой умных машин. Формула-1 впервые подключилась к компьютеру: телеметрия в реальном времени, активная подвеска на сервоприводах, система управления топливом, настроенная не по интуиции, а по коду. В болидах больше не просто сидел гонщик — рядом с ним работал процессор.
+Все эти решения пришли из космоса и военной промышленности: стабилизаторы, спутники, аэрокосмическое позиционирование. Болид стал не просто телом — он стал нервной системой на скорости 300 км/ч.
+
+
+
+</p>
+    </div>`,
+            `<div>
+      <img src="img/83s.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>Железо уступило место карбону. Теперь монокок был не просто крепким — он был пуленепробиваемым. Углепластик, созданный в недрах Boeing и McDonnell Douglas, стал новой бронёй пилота. Каски из кевлара, огнеупорные комбинезоны из Nomex — всё это пришло из лабораторий NASA и армии.
+Формула-1 впервые всерьёз задумалась о выживании. После трагедий и аварий, которые потрясли мир, инженеры начали проектировать машины так, чтобы они спасали. Но главное — машины стали умнее, быстрее и страшнее, чем когда-либо.
+
+
+
+</p>
+    </div>`
+        ],
+        "90s": [
+            `<div>
+      <img src="img/91s.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>В 1990-х болид стал не просто машиной — он стал пилотом сам по себе. Электронные системы слежения за сцеплением (трекшн-контроль), полуавтоматическая коробка с лепестками, телеметрия в обе стороны — всё это работало не по нажатию кнопки, а по команде из центра управления.
+На борту машины теперь была целая цифровая вселенная: датчики, приводы, алгоритмы. Каждый поворот, каждый перегаз был записан, обработан, спрогнозирован. Формула-1 превратилась в инженерное фехтование на скорости звука.
+
+
+
+</p>
+    </div>`,
+            `<div>
+      <img src="img/92s.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>После жёстких трагедий — особенно гибели Айртона Сенны в 1994 — безопасность стала новой религией Формулы-1. Монококи из углеволокна усилили зонами деформации, шлемы и костюмы стали работать на уровне аэрокосмоса, а вокруг головы пилота выросли борта кокпита.
+Появились HANS-системы для защиты шеи, новые стандарты креплений, анализ ударов. Гонка больше не прощала ошибок — но теперь машина умела спасти жизнь там, где раньше спасал только фарт.
+</p>
+    </div>`,
+            `<div>
+      <img src="img/93s.png" class="w-full h-[300px] object-cover rounded rich-glow mb-4">
+      <p>В 90-х аэродинамика стала точной наукой. Крылья стали многоэтажными, появились баржи, диффузоры, сплиттеры. Потоки воздуха больше не ощущались на глаз — их просчитывали суперкомпьютеры, моделировали в CFD-системах, тестировали в аэротрубах, снятых с производства авиазаводов.
+А потом, в 1998 году, FIA сделала шаг назад — запретила слики, вернула канавки на шинах, чтобы искусственно снизить сцепление. Формула-1 достигла технологического потолка — и впервые испугалась, что пройдёт сквозь него.
+
+</p>
+    </div>`
+        ],
+        quiz: ["Take the Quiz", "Leaderboard", "Share Results"]
     };
 
     const labels = {
         start: "Start", "50s": "50s", "60s": "60s",
-        "70s": "70s", "80s": "80s", "90s": "90s", quiz: "Quiz",
+        "70s": "70s", "80s": "80s", "90s": "90s", quiz: "Quiz"
     };
 
     const timeline = document.getElementById("timeline");
@@ -127,51 +260,34 @@
                     const card = document.createElement("div");
                     card.className = "rich-card text-white rounded-xl shadow-xl p-8 transition-transform hover:scale-[1.03]";
                     card.innerHTML = `
-            <div class="h-44 bg-zinc-700 mb-6 rounded-md rich-glow"></div>
-            <h4 class="text-xl font-semibold mb-2 text-red-500">
-              <a href="#" class="hover:underline">${news.title}</a>
-            </h4>
-            <p class="text-base text-zinc-300">${news.description}</p>`;
+          <a href="${news.sourceUrl}" target="_blank" class="block">
+            <img src="${news.imageUrl}" alt="news image" class="h-44 w-full object-cover mb-6 rounded-md rich-glow" />
+            <h4 class="text-xl font-semibold mb-2 text-red-500 hover:underline">${news.title}</h4>
+            <p class="text-base text-zinc-300">${news.summary}</p>
+            <p class="text-xs mt-2 text-zinc-500">${new Date(news.publishedAt).toLocaleString()}</p>
+          </a>`;
                     newsContainer.appendChild(card);
                 });
             })
             .catch(err => {
                 newsContainer.innerHTML = "<p class='text-center text-zinc-400'>Не удалось загрузить новости</p>";
             });
-    });
 
-    Object.keys(labels).forEach((key) => {
-        const point = document.createElement("div");
-        point.className = "w-14 h-14 rounded-full border-4 border-zinc-800 bg-red-700 neon-border flex items-center justify-center text-sm font-semibold shadow-xl cursor-pointer transition-all hover:scale-125 hover:brightness-110 hover:shadow-red-600";
-        point.innerText = labels[key];
-        point.onclick = () => openModal(key);
-        timeline.appendChild(point);
+        Object.keys(labels).forEach((key) => {
+            const point = document.createElement("div");
+            point.className = "w-14 h-14 rounded-full border-4 border-zinc-800 bg-red-700 neon-border flex items-center justify-center text-sm font-semibold shadow-xl cursor-pointer transition-all hover:scale-125 hover:brightness-110 hover:shadow-red-600";
+            point.innerText = labels[key];
+            point.onclick = () => openModal(key);
+            timeline.appendChild(point);
+        });
     });
 
     function openModal(key) {
         currentKey = key;
         currentIndex = 0;
         modalTitle.innerText = labels[key];
-
-        if (key === "quiz") {
-            fetch("/api/top-users")
-                .then(response => response.json())
-                .then(users => {
-                    modalContent.innerHTML = `
-            <h3 class="text-lg font-semibold text-zinc-800 mb-2">Топ 5 пользователей</h3>
-            <ul class="text-zinc-700 space-y-1">
-              ${users.map((user, i) => `<li>${i + 1}. ${user.username} — ${user.points} баллов</li>`).join('')}
-            </ul>`;
-                })
-                .catch(() => {
-                    modalContent.innerHTML = "<p class='text-red-600'>Ошибка загрузки данных пользователей</p>";
-                });
-        } else {
-            modalContent.innerText = data[key][0];
-        }
-
-        modal.classList.remove("hidden");
-        modal.classList.remove("modal-exit-active");
+        modalContent.innerHTML = data[key][0];
+        modal.classList.remove("hidden", "modal-exit-active");
         modal.classList.add("modal-enter");
         setTimeout(() => modal.classList.add("modal-enter-active"), 10);
     }
@@ -179,21 +295,27 @@
     function closeModal() {
         modal.classList.remove("modal-enter-active");
         modal.classList.add("modal-exit-active");
-        setTimeout(() => {
-            modal.classList.add("hidden");
-        }, 300);
+        setTimeout(() => modal.classList.add("hidden"), 300);
     }
 
     function nextCard() {
-        if (currentKey === "quiz") return;
-        currentIndex = (currentIndex + 1) % data[currentKey].length;
-        modalContent.innerText = data[currentKey][currentIndex];
+        const keys = Object.keys(data);
+        if (currentIndex < data[currentKey].length - 1) {
+            currentIndex++;
+            modalContent.innerHTML = data[currentKey][currentIndex];
+        } else {
+            const currentPos = keys.indexOf(currentKey);
+            const nextKey = keys[(currentPos + 1) % keys.length];
+            currentKey = nextKey;
+            currentIndex = 0;
+            modalTitle.innerText = labels[nextKey];
+            modalContent.innerHTML = data[nextKey][0];
+        }
     }
 
     function prevCard() {
-        if (currentKey === "quiz") return;
         currentIndex = (currentIndex - 1 + data[currentKey].length) % data[currentKey].length;
-        modalContent.innerText = data[currentKey][currentIndex];
+        modalContent.innerHTML = data[currentKey][currentIndex];
     }
 
     document.getElementById("menuToggle").addEventListener("click", () => {

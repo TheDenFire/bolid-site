@@ -5,6 +5,9 @@ import com.bolid.entity.TelegramUser;
 import com.bolid.repository.TelegramUserRepository;
 import com.bolid.service.NewsService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +27,17 @@ public class ApiController {
     @GetMapping("/top-users")
     @Operation(
         summary = "Получить топ-5 пользователей",
-        description = "Возвращает список из 5 пользователей с наивысшими баллами"
+        description = "Возвращает список из 5 пользователей с наивысшими баллами",
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "Успешное получение списка пользователей",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = TelegramUser.class)
+                )
+            )
+        }
     )
     public List<TelegramUser> getTopUsers() {
         return telegramUserRepository.findTop5ByOrderByPointsDesc();
@@ -33,7 +46,17 @@ public class ApiController {
     @GetMapping("/news")
     @Operation(
         summary = "Получить последние новости",
-        description = "Возвращает список последних новостей с заголовками и краткими описаниями"
+        description = "Возвращает список последних новостей с заголовками и краткими описаниями",
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "Успешное получение списка новостей",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = News.class)
+                )
+            )
+        }
     )
     public List<News> getNews() {
         return newsService.getLatestNews();

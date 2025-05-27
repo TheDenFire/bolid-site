@@ -5,6 +5,7 @@ import com.bolid.entity.TelegramUser;
 import com.bolid.repository.TelegramUserRepository;
 import com.bolid.service.NewsService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -34,7 +35,7 @@ public class ApiController {
                 description = "Успешное получение списка пользователей",
                 content = @Content(
                     mediaType = "application/json",
-                    schema = @Schema(implementation = TelegramUser.class)
+                    array = @ArraySchema(schema = @Schema(implementation = TelegramUser.class))
                 )
             )
         }
@@ -53,7 +54,7 @@ public class ApiController {
                 description = "Успешное получение списка новостей",
                 content = @Content(
                     mediaType = "application/json",
-                    schema = @Schema(implementation = News.class)
+                    array = @ArraySchema(schema = @Schema(implementation = News.class))
                 )
             )
         }

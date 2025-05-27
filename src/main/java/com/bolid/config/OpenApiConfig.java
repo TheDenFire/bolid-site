@@ -29,11 +29,11 @@ public class OpenApiConfig {
                                 .url("http://www.apache.org/licenses/LICENSE-2.0.html")))
                 .servers(List.of(
                         new Server()
-                                .url("http://0.0.0.0:8080")
-                                .description("Локальный сервер разработки"),
+                                .url("https://site-bolids-thedenfire.amvera.io")
+                                .description("Production server"),
                         new Server()
-                                .url("http://site-bolids-thedenfire.amvera.io")
-                                .description("Локальный сервер разработки")
+                                .url("http://localhost:8080")
+                                .description("Local development server")
                 ))
                 .tags(List.of(
                         new Tag()

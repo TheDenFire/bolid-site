@@ -5,6 +5,7 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.servers.Server;
+import io.swagger.v3.oas.models.tags.Tag;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,8 +29,13 @@ public class OpenApiConfig {
                                 .url("http://www.apache.org/licenses/LICENSE-2.0.html")))
                 .servers(List.of(
                         new Server()
-                                .url("http://0.0.0.0:8080")
-                                .description("Сервер")
+                                .url("http://localhost:8080")
+                                .description("Локальный сервер разработки")
+                ))
+                .tags(List.of(
+                        new Tag()
+                                .name("Bolid API")
+                                .description("API для получения данных о пользователях и новостях")
                 ));
     }
 } 

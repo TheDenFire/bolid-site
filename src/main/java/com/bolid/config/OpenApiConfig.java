@@ -32,7 +32,7 @@ public class OpenApiConfig {
                                 .url("http://0.0.0.0:8080")
                                 .description("Локальный сервер разработки"),
                         new Server()
-                                .url("http://0.0.0.0:8080")
+                                .url("http://localhost:8080")
                                 .description("Локальный сервер разработки")
                 ))
                 .tags(List.of(

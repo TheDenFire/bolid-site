@@ -14,9 +14,13 @@
     <groupId>com.bolid</groupId>
     <artifactId>bolid-site</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>bolid-site</name>
     <description>Backend for Bolid website</description>
-    
+    <modules>
+        <module>tg-bot</module>
+    </modules>
+
     <properties>
         <java.version>17</java.version>
     </properties>

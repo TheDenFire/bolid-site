@@ -1,5 +1,6 @@
 package com.bolid.controller;
 
+import com.bolid.dto.NewsDto;
 import com.bolid.entity.News;
 import com.bolid.entity.TelegramUser;
 import com.bolid.repository.TelegramUserRepository;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -46,20 +48,22 @@ public class ApiController {
 
     @GetMapping("/news")
     @Operation(
-        summary = "Получить последние новости",
-        description = "Возвращает список последних новостей с заголовками и краткими описаниями",
+        summary = "Получить последние 3 новости",
+        description = "Возвращает список из 3-х последних новостей, отсортированных по дате публикации",
         responses = {
             @ApiResponse(
                 responseCode = "200",
                 description = "Успешное получение списка новостей",
                 content = @Content(
                     mediaType = "application/json",
-                    array = @ArraySchema(schema = @Schema(implementation = News.class))
+                    array = @ArraySchema(schema = @Schema(implementation = NewsDto.class))
                 )
             )
         }
     )
-    public List<News> getNews() {
-        return newsService.getLatestNews();
+    public List<NewsDto> getNews() {
+        return newsService.getLatestNews().stream()
+                .map(NewsDto::fromEntity)
+                .collect(Collectors.toList());
     }
 } 

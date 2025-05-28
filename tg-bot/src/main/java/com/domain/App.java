@@ -11,6 +11,7 @@ import org.apache.http.util.EntityUtils;
 public class App {
     public static void main(String[] args) {
         try {
+            // fd
             System.out.println("DB_URL: " + System.getenv("DB_URL"));
             System.out.println("DB_USER: " + System.getenv("DB_USER"));
 

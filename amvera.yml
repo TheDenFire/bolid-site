@@ -7,10 +7,10 @@ build:
   image: null
   args: spring-boot:repackage
   artifacts:
-    tg-bot/target/*.jar: /
+    backend/target/*.jar: /
 run:
   image: null
-  jarName: bolid-site.jar
+  jarName: backend-0.0.1-SNAPSHOT.jar
   persistenceMount: /data
   containerPort: "8080"
   servicePort: "80"

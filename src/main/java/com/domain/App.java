@@ -14,7 +14,6 @@ public class App {
             System.out.println("DB_URL: " + System.getenv("DB_URL"));
             System.out.println("DB_USER: " + System.getenv("DB_USER"));
 
-            // Clear webhook before starting
             String token = System.getenv("TG_TOKEN");
             String deleteWebhookUrl = "https://api.telegram.org/bot" + token + "/deleteWebhook";
             try (var httpClient = HttpClients.createDefault()) {
@@ -22,10 +21,6 @@ public class App {
                 var response = httpClient.execute(request);
                 System.out.println("Webhook deletion response: " + EntityUtils.toString(response.getEntity()));
             }
-
-            // Add a small delay
-            Thread.sleep(1000);
-            
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
             HistoryBot bot = new HistoryBot();
             botsApi.registerBot(bot);

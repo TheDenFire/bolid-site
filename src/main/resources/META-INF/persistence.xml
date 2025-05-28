@@ -7,9 +7,9 @@
     <persistence-unit name="history">
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://77.232.132.88:5432/history_db"/>
-            <property name="jakarta.persistence.jdbc.user" value="myuser"/>
-            <property name="jakarta.persistence.jdbc.password" value="mypass"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://bolid-site-thedenfire.db-msk0.amvera.tech/bolid-site"/>
+            <property name="jakarta.persistence.jdbc.user" value="postgres"/>
+            <property name="jakarta.persistence.jdbc.password" value="iuUvuq2004"/>
 
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>

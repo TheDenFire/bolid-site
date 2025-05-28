@@ -6,15 +6,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @Data
 @Entity
-@Table(name = "telegram_users")
+@Table(name = "users")
 @Schema(description = "Модель пользователя Telegram")
 public class TelegramUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(description = "Уникальный идентификатор пользователя")
-    private int id;
-
-    @Column(name = "telegram_id", unique = true)
+    @Column(name = "telegramid")
     @Schema(description = "Telegram ID пользователя")
     private Long telegramId;
 
@@ -22,7 +18,15 @@ public class TelegramUser {
     @Schema(description = "Имя пользователя в Telegram")
     private String username;
 
-    @Column(name = "points")
+    @Column(name = "score")
     @Schema(description = "Количество баллов пользователя")
     private Integer points;
+
+    @Column(name = "registeredat")
+    @Schema(description = "Дата регистрации пользователя")
+    private java.time.LocalDateTime registeredAt;
+
+    @Column(name = "role")
+    @Schema(description = "Роль пользователя")
+    private String role;
 } 

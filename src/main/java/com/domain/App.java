@@ -7,9 +7,9 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 public class App {
     public static void main(String[] args) {
         try {
-            Dotenv dotenv = Dotenv.load();
-            String telegramToken = dotenv.get("TG_TOKEN");
-            String dbUrl = dotenv.get("DB_URL");
+            Dotenv dotenv = Dotenv.configure().load();
+            String telegramToken = System.getenv("TG_TOKEN");
+            String dbUrl = System.getenv("TG_TOKEN");
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
             botsApi.registerBot(new HistoryBot());
         } catch (Exception e) {

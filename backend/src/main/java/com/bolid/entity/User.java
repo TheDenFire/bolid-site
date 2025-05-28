@@ -9,8 +9,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Table(name = "users")
 @Schema(description = "Модель пользователя Telegram")
 public class User {
-
-    //fd
     @Id
     @Column(name = "telegramid")
     @Schema(description = "Telegram ID пользователя")

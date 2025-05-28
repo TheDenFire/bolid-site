@@ -1,5 +1,6 @@
 package com.domain;
 
+import com.bolid.tgbot.HistoryBot;
 import jakarta.persistence.EntityManager;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -15,15 +16,17 @@ public class App {
             System.out.println("DB_URL: " + System.getenv("DB_URL"));
             System.out.println("DB_USER: " + System.getenv("DB_USER"));
 
-            String token = System.getenv("TG_TOKEN");
-            String deleteWebhookUrl = "https://api.telegram.org/bot" + token + "/deleteWebhook";
+            String botUsername = "bolidquiz_bot";
+            String botToken = "7524207216:AAGy_aSjHm0IMmAmelo1HBKVVkJ94Hi-Tko";
+            
+            String deleteWebhookUrl = "https://api.telegram.org/bot" + botToken + "/deleteWebhook";
             try (var httpClient = HttpClients.createDefault()) {
                 var request = new HttpPost(deleteWebhookUrl);
                 var response = httpClient.execute(request);
                 System.out.println("Webhook deletion response: " + EntityUtils.toString(response.getEntity()));
             }
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-            HistoryBot bot = new HistoryBot();
+            HistoryBot bot = new HistoryBot(botUsername, botToken);
             botsApi.registerBot(bot);
         } catch (Exception e) {
             e.printStackTrace();

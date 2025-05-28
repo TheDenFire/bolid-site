@@ -7,6 +7,8 @@ import com.domain.models.User;
 import com.domain.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -14,30 +16,35 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
 
+@Component
 public class UpdateDispatcher {
-
-    private static final UserService userService = new UserService();
-
-    private static final MainHandler mainHandler = new MainHandler();
-
-    private static final QuestionHandler questionHandler = new QuestionHandler();
-    private static final RatingHandler ratingHandler = new RatingHandler();
 
     private static final Logger log = LoggerFactory.getLogger(UpdateDispatcher.class);
 
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private MainHandler mainHandler;
+    
+    @Autowired
+    private QuestionHandler questionHandler;
+    
+    @Autowired
+    private RatingHandler ratingHandler;
 
     public BotApiMethod<?> dispatch(Update update) {
         try {
             if (update.hasMessage()) {
-                Long userId =  update.getMessage().getFrom().getId();
+                Long userId = update.getMessage().getFrom().getId();
                 String text = update.getMessage().getText();
                 if (text != null) {
                     text = text.trim();
 
                     if (text.equalsIgnoreCase("/start")) {
-                        User user = new User(update.getMessage().getChatId(),update.getMessage().getFrom().getUserName(), LocalDateTime.now());
+                        User user = new User(update.getMessage().getChatId(), update.getMessage().getFrom().getUserName(), LocalDateTime.now());
                         userService.save(user);
-                        return new SendMessage(userId.toString(),"""
+                        return new SendMessage(userId.toString(), """
                             👋 Привет! Добро пожаловать в *QuizBot*!
                     
                             Здесь ты можешь проверить свои знания, отвечая на вопросы в формате викторины.  
@@ -97,6 +104,5 @@ public class UpdateDispatcher {
             log.info(e.getMessage());
             return new SendMessage(chatId, "Ошибка:");
         }
-
     }
 }

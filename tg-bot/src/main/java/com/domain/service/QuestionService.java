@@ -2,24 +2,21 @@ package com.domain.service;
 
 import com.domain.dao.QuestionDAO;
 import com.domain.models.Question;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.List;
 
+@Service
 public class QuestionService {
-    private static final Logger log = LoggerFactory.getLogger(QuestionService.class);
-    private final QuestionDAO questionDAO = new QuestionDAO();
+    private final QuestionDAO questionDAO;
+
+    @Autowired
+    public QuestionService(QuestionDAO questionDAO) {
+        this.questionDAO = questionDAO;
+    }
 
     public List<Question> getQuestions() {
-        try{
-            return questionDAO.getRandomQuestions(10);
-        }
-        catch(Exception e){
-            log.error(e.getMessage());
-            return null;
-        }
-
+        return questionDAO.getRandomQuestions(10);
     }
 }

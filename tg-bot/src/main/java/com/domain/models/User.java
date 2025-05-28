@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 public class User {
     @Id
+    @Column(name = "telegramid")
     private Long telegramId;
 
     @Column
@@ -16,9 +17,11 @@ public class User {
     @Column
     private Integer score;
 
+    @Column
+    @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @Column(nullable = false)
+    @Column(name = "registeredat", nullable = false)
     private LocalDateTime registeredAt;
 
 

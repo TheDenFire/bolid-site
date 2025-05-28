@@ -5,6 +5,8 @@ import com.domain.models.Question;
 import com.domain.models.User;
 import com.domain.service.QuestionService;
 import com.domain.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
@@ -15,13 +17,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class QuestionHandler extends BaseHandler{
+@Component
+public class QuestionHandler extends BaseHandler {
 
-    private static final QuestionService questionService = new QuestionService();
-    private static final UserService userService = new UserService();
-
+    private final QuestionService questionService;
+    private final UserService userService;
     private final Map<Long, LinkedList<Question>> session = new HashMap<>();
 
+    @Autowired
+    public QuestionHandler(QuestionService questionService, UserService userService) {
+        this.questionService = questionService;
+        this.userService = userService;
+    }
 
     @Override
     public BotApiMethod<?> handle(Update update) {
@@ -35,16 +42,12 @@ public class QuestionHandler extends BaseHandler{
                 SendMessage welcome = new SendMessage();
                 welcome.setChatId(chatId);
                 welcome.setText("🎲 Начинаем викторину! Всего 10 вопросов. Удачи!");
-
                 welcome.setReplyMarkup(AnswerKeyboard.start());
-
-
-
                 return welcome;
             }
         }
 
-        if (update.hasCallbackQuery()){
+        if (update.hasCallbackQuery()) {
             String data = update.getCallbackQuery().getData();
             Long userId = update.getCallbackQuery().getFrom().getId();
 
@@ -53,7 +56,7 @@ public class QuestionHandler extends BaseHandler{
                 Question question = questions.pop();
                 session.put(userId, questions);
 
-                EditMessageText startQuiz = createEditMessage(chatId,update.getCallbackQuery().getMessage().getMessageId(),question.getText());
+                EditMessageText startQuiz = createEditMessage(chatId, update.getCallbackQuery().getMessage().getMessageId(), question.getText());
                 startQuiz.setReplyMarkup(AnswerKeyboard.build(question.getOptions()));
                 return startQuiz;
             }

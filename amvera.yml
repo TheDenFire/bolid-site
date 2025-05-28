@@ -5,7 +5,7 @@ meta:
     version: "21"
 build:
   image: null
-  args: null
+  args: package
   artifacts:
     target/*.jar: /
 run:

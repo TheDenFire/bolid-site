@@ -1,87 +1,39 @@
 package com.bolid.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.io.Serial;
 import java.time.LocalDateTime;
 
+@Data
 @Entity
 @Table(name = "news")
+@Schema(description = "Модель новости")
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Schema(description = "Уникальный идентификатор новости")
+    private int id;
 
-    @Column(nullable = false)
+    @Column(name = "title")
+    @Schema(description = "Заголовок новости")
     private String title;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "summary", length = 1000)
+    @Schema(description = "Краткое описание новости")
     private String summary;
 
-    @Column(name = "source_url", nullable = false)
+    @Column(name = "source_url")
+    @Schema(description = "URL источника новости")
     private String sourceUrl;
 
     @Column(name = "image_url")
+    @Schema(description = "URL картиночки")
     private String imageUrl;
 
-    @Column(name = "published_at", nullable = false)
-    private LocalDateTime publishedAt;
-
     @Column(name = "original_published_at")
-    private LocalDateTime originalPublishedAt;
-
-    // Getters and Setters
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public String getSourceUrl() {
-        return sourceUrl;
-    }
-
-    public void setSourceUrl(String sourceUrl) {
-        this.sourceUrl = sourceUrl;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public LocalDateTime getPublishedAt() {
-        return publishedAt;
-    }
-
-    public void setPublishedAt(LocalDateTime publishedAt) {
-        this.publishedAt = publishedAt;
-    }
-
-    public LocalDateTime getOriginalPublishedAt() {
-        return originalPublishedAt;
-    }
-
-    public void setOriginalPublishedAt(LocalDateTime originalPublishedAt) {
-        this.originalPublishedAt = originalPublishedAt;
-    }
+    @Schema(description = "Дата и время создания новости")
+    private LocalDateTime publishedAt;
 } 

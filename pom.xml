@@ -19,6 +19,7 @@
     <description>Backend for Bolid website</description>
     <modules>
         <module>backend</module>
+        <module>tg-bot</module>
     </modules>
 
     <properties>

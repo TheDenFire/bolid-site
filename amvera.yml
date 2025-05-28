@@ -1,0 +1,16 @@
+meta:
+  environment: jvm
+  toolchain:
+    name: maven
+    version: "17"
+build:
+  image: null
+  args: package
+  artifacts:
+    target/*.jar: /
+run:
+  image: null
+  jarName: tg-bot-1.0-SNAPSHOT.jar
+  persistenceMount: /data
+  containerPort: "80"
+  servicePort: "80"

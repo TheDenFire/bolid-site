@@ -45,7 +45,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen font-sans rich-gradient text-white px-6">
+<body class="flex flex-col min-h-screen font-sans rich-gradient text-white px-6">
 <div id="preloader" class="fixed inset-0 bg-black flex items-center justify-center z-50">
     <div class="w-20 h-20 border-4 border-t-transparent border-red-600 rounded-full animate-spin"></div>
 </div>
@@ -89,14 +89,6 @@
     <h3 class="text-2xl text-red-500 font-semibold mb-6 text-center">Latest News</h3>
     <div id="news-container" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
 </section>
-
-<footer class="bg-zinc-900 border-t border-red-700 text-white text-center py-10 rich-glow">
-    <div class="max-w-screen-lg mx-auto">
-        <p class="text-lg text-white/60 mb-2">F1 Timeline Project</p>
-        <p class="text-sm text-red-400">Created with passion for speed, history, and innovation.</p>
-        <p class="text-xs mt-4 text-zinc-500">© 2025 All rights reserved.</p>
-    </div>
-</footer>
 <script>
     const data = {
         start: [
@@ -376,5 +368,13 @@ Lotus построил юбки, NASA дала формулы, и гонки н�
         document.getElementById("dropdownMenu").classList.toggle("hidden");
     });
 </script>
+<footer class="mt-auto w-full bg-zinc-900 text-center py-8 border-t-4 border-red-600 neon-border">
+    <h4 class="text-xl font-semibold text-white mb-2">F1 Timeline Project</h4>
+    <p class="text-red-500 font-medium">
+        Created with passion for speed, history, and innovation.
+    </p>
+    <p class="mt-2 text-sm text-zinc-500">© 2025 All rights reserved.</p>
+</footer>
+
 </body>
 </html>

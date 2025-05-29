@@ -16,8 +16,6 @@ public class User {
     @Column
     private Integer score;
 
-    private UserRole role;
-
     @Column(nullable = false)
     private LocalDateTime registeredAt;
 
@@ -27,7 +25,6 @@ public class User {
         this.username = username;
         this.score = 0;
         this.registeredAt = now;
-        this.role = UserRole.USER;
     }
 
     public User() { }
@@ -62,13 +59,5 @@ public class User {
 
     public void setScore(Integer score) {
         this.score = score;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
     }
 }

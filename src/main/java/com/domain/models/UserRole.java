@@ -1,5 +1,5 @@
-package com.domain.models;
-
-public enum UserRole {
-    ADMIN, USER
-}
+//package com.domain.models;
+//
+//public enum UserRole {
+//    ADMIN, USER
+//}

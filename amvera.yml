@@ -7,10 +7,10 @@ build:
   image: null
   args: package
   artifacts:
-    target/*.jar: /
+    target/tg-bot-1.0-SNAPSHOT.jar: /
 run:
   image: null
-  jarName: target/tg-bot-1.0-SNAPSHOT.jar
+  jarName: tg-bot-1.0-SNAPSHOT.jar
   persistenceMount: /data
   containerPort: "80"
   servicePort: "80"

@@ -7,7 +7,7 @@ build:
   image: null
   args: package
   artifacts:
-    target/tg-bot-1.0-SNAPSHOT.jar: /
+    target/*.jar: /
 run:
   image: null
   jarName: tg-bot-1.0-SNAPSHOT.jar

@@ -18,12 +18,14 @@ public class RatingHandler extends BaseHandler {
             String chatId = update.getMessage().getChatId().toString();
 
             if ("/rating".equalsIgnoreCase(text)) {
-
-                StringBuilder res = new StringBuilder("Вот 10 лучших игроков:\n\n");
+                StringBuilder res = new StringBuilder("🏆 Вот 10 лучших игроков:\n\n");
                 List<User> users = userService.Top10();
 
                 for (User user : users) {
-                    res.append(user.getUsername()).append(" ").append(user.getScore() + "/10 ").append("\n");
+                    res.append("⭐️ ")
+                            .append(user.getUsername())
+                            .append(" — ")
+                            .append(user.getScore()).append("/10\n");
                 }
 
                 return createMessage(chatId, res.toString());

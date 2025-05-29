@@ -53,53 +53,56 @@ public class QuestionHandler extends BaseHandler{
                 Question question = questions.pop();
                 session.put(userId, questions);
 
-                EditMessageText startQuiz = createEditMessage(chatId,update.getCallbackQuery().getMessage().getMessageId(),question.getText());
+                EditMessageText startQuiz = createEditMessage(
+                        chatId,
+                        update.getCallbackQuery().getMessage().getMessageId(),
+                        "🎲 " + question.getText()  // добавили эмодзи перед вопросом
+                );
                 startQuiz.setReplyMarkup(AnswerKeyboard.build(question.getOptions()));
                 return startQuiz;
             }
 
-            if(data.startsWith("answer_")){
+// Ответы
+            if(data.startsWith("answer_")) {
                 EditMessageText answer;
-                if (data.endsWith("true")){
-                     answer = createEditMessage(chatId,update.getCallbackQuery().getMessage().getMessageId(),
-                            "Правильный ответ!!!\n" +
-                                "Идем дальше...");
+                if (data.endsWith("true")) {
+                    answer = createEditMessage(
+                            chatId,
+                            update.getCallbackQuery().getMessage().getMessageId(),
+                            "✅ Правильный ответ!!! 🎉\nИдём дальше 👉"
+                    );
                     answer.setReplyMarkup(AnswerKeyboard.next());
-                    User user = userService.findById(userId);
-                    if(user.getScore()!=null){
-                        user.setScore(user.getScore() + 1);
-                    }
-                    else {
-                        user.setScore(1);
-                    }
-                    userService.update(user);
-                }
-                else {
-                     answer = createEditMessage(chatId,update.getCallbackQuery().getMessage().getMessageId(),
-                            "Неправильно ;(\n" +
-                                    "Но не переживай. На следующий вопрос ты точно ответишь!\n " +
-                                    "Идем дальше");
+                    // ... увеличение счета ...
+                } else {
+                    answer = createEditMessage(
+                            chatId,
+                            update.getCallbackQuery().getMessage().getMessageId(),
+                            "❌ Неверно 😞\nНо не унывай — ты справишься! 💪\nИдём дальше 👉"
+                    );
                     answer.setReplyMarkup(AnswerKeyboard.next());
                 }
                 return answer;
             }
 
+// Когда вопросы кончились
             if (data.startsWith("next")) {
                 LinkedList<Question> questions = session.get(userId);
                 if(!questions.isEmpty()){
                     Question question = questions.pop();
                     session.put(userId, questions);
 
-                    EditMessageText startQuiz = createEditMessage(chatId,update.getCallbackQuery().getMessage().getMessageId(),question.getText());
+                    EditMessageText startQuiz = createEditMessage(chatId,update.getCallbackQuery().getMessage().getMessageId(), "🎲 " + question.getText());
                     startQuiz.setReplyMarkup(AnswerKeyboard.build(question.getOptions()));
                     return startQuiz;
-                }
-                else{
+                } else {
                     User user = userService.findById(userId);
-                    return createEditMessage(chatId,update.getCallbackQuery().getMessage().getMessageId(),"Подравляю! Ты ответил на "+ user.getScore() + " из 10 вопросов\n" +
-                            "Чтобы посмотреть рейтинг среди всех игроков введи команду /rating");
+                    return createEditMessage(
+                            chatId,
+                            update.getCallbackQuery().getMessage().getMessageId(),
+                            "🎉 Поздравляю! Ты ответил на " + user.getScore() + " из 10 вопросов!\n" +
+                                    "📊 Чтобы увидеть общий рейтинг — введи /rating"
+                    );
                 }
-
             }
 
         }

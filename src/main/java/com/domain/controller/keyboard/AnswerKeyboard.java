@@ -36,7 +36,7 @@ public class AnswerKeyboard {
         List<List<InlineKeyboardButton>> rows = new ArrayList<>();
         InlineKeyboardButton button = new InlineKeyboardButton();
 
-        button.setText("Начнем");
+        button.setText("🚀 Начнём!");
         button.setCallbackData("start_quiz");
 
         List<InlineKeyboardButton> row = new ArrayList<>();
@@ -52,7 +52,7 @@ public class AnswerKeyboard {
         List<List<InlineKeyboardButton>> rows = new ArrayList<>();
         InlineKeyboardButton button = new InlineKeyboardButton();
 
-        button.setText("Следующий вопрос");
+        button.setText("👉 Следующий вопрос?");
         button.setCallbackData("next");
 
         List<InlineKeyboardButton> row = new ArrayList<>();

@@ -10,7 +10,7 @@ build:
     target/*.jar: /
 run:
   image: null
-  jarName: tg-bot-1.0-SNAPSHOT.jar
+  jarName: target/tg-bot-1.0-SNAPSHOT.jar
   persistenceMount: /data
   containerPort: "80"
   servicePort: "80"

@@ -21,7 +21,7 @@ if missing_vars:
 
 # Настройки парсера
 PARSER_CONFIG = {
-    'interval': int(os.getenv('PARSER_INTERVAL', 3600)),  # Интервал между проверками в секундах
+    'interval': int(os.getenv('PARSER_INTERVAL', 600)),  # Интервал между проверками в секундах
     'retry_interval': 300,  # Интервал между повторными попытками при ошибке
     'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
 }

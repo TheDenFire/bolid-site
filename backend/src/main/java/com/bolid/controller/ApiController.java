@@ -1,8 +1,8 @@
 package com.bolid.controller;
 
 import com.bolid.entity.News;
-import com.bolid.entity.TelegramUser;
-import com.bolid.repository.TelegramUserRepository;
+import com.bolid.entity.User;
+import com.bolid.repository.UserRepository;
 import com.bolid.service.NewsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Bolid API", description = "API для получения данных о пользователях и новостях")
 public class ApiController {
-    private final TelegramUserRepository telegramUserRepository;
+    private final UserRepository telegramUserRepository;
     private final NewsService newsService;
 
     @GetMapping("/top-users")
@@ -35,12 +35,12 @@ public class ApiController {
                 description = "Успешное получение списка пользователей",
                 content = @Content(
                     mediaType = "application/json",
-                    schema = @Schema(implementation = TelegramUser.class)
+                    schema = @Schema(implementation = User.class)
                 )
             )
         }
     )
-    public List<TelegramUser> getTopUsers() {
+    public List<User> getTopUsers() {
         return telegramUserRepository.findTop5ByOrderByPointsDesc();
     }
 

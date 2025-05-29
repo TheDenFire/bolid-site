@@ -233,13 +233,23 @@ Lotus построил юбки, NASA дала формулы, и гонки н�
                 <a href="https://t.me/bolidquiz_bot"  target="_blank" class="inline-block px-6 py-3 text-base sm:text-xl font-bold text-white bg-red-600 hover:bg-red-700 rounded-full transition">Пройти квиз →</a>
             </div>
             `,
-            `<div class="p-6 rounded-xl shadow-xl neon-border border-2 border-red-600 bg-gradient-to-br from-zinc-950 to-zinc-900 text-left">
+            `
+            <div class="p-6 rounded-xl shadow-xl neon-border border-2 border-red-600 bg-gradient-to-br from-zinc-950 to-zinc-900 text-left">
     <h3 class="text-xl sm:text-2xl font-bold text-red-500 mb-4 text-center">🏁 Топ 5 пользователей</h3>
     <div id="top-users-loading" class="flex justify-center py-6">
         <div class="animate-spin rounded-full h-10 w-10 border-t-4 border-red-500 border-opacity-50"></div>
     </div>
     <ul id="top-users-list" class="space-y-2 text-sm sm:text-lg text-red-400 font-medium hidden"></ul>
-</div>`
+
+    <!-- Кнопка "Обновить топ" -->
+    <button onclick="refreshTopUsers()" class="mt-6 w-full py-2 px-4 rounded-full bg-gradient-to-r from-red-700 to-pink-600 hover:from-red-800 hover:to-pink-700 text-white font-semibold shadow-lg hover:shadow-red-500/50 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+        </svg>
+        Обновить топ
+    </button>
+</div>
+            `
 
         ]
     };
@@ -318,7 +328,6 @@ Lotus построил юбки, NASA дала формулы, и гонки н�
             currentIndex = 0;
             modalTitle.innerText = labels[currentKey];
         }
-
         modalContent.innerHTML = data[currentKey][currentIndex];
 
         // === Специально для quiz второго слайда ===
@@ -327,7 +336,6 @@ Lotus построил юбки, NASA дала формулы, и гонки н�
             const leaderboard = document.getElementById("top-users-list");
             leaderboard.classList.add("hidden");
             loader.classList.remove("hidden");
-
             fetch("/api/top-users")
                 .then(response => response.json())
                 .then(users => {
@@ -354,13 +362,66 @@ Lotus построил юбки, NASA дала формулы, и гонки н�
     }
 
     function prevCard() {
-        currentIndex = (currentIndex - 1 + data[currentKey].length) % data[currentKey].length;
-        modalContent.innerHTML = data[currentKey][currentIndex];
+        if (currentKey === "quiz") {
+            if (currentIndex > 0) {
+                currentIndex--;
+                modalContent.innerHTML = data[currentKey][currentIndex];
+            } else {
+                // Переход назад из первого слайда quiz -> последний слайд "90s"
+                const keys = Object.keys(data);
+                const prevKey = keys[(keys.indexOf(currentKey) - 1 + keys.length) % keys.length];
+                currentKey = prevKey;
+                currentIndex = data[currentKey].length - 1;
+                modalTitle.innerText = labels[currentKey];
+                modalContent.innerHTML = data[currentKey][currentIndex];
+            }
+        } else {
+            currentIndex = (currentIndex - 1 + data[currentKey].length) % data[currentKey].length;
+            modalContent.innerHTML = data[currentKey][currentIndex];
+        }
+
+        // Сброс флага загрузки топа, чтобы можно было обновить
+        if (currentKey === "quiz" && currentIndex === 1) {
+            topUsersLoaded = false;
+        }
     }
+
 
     document.getElementById("menuToggle").addEventListener("click", () => {
         document.getElementById("dropdownMenu").classList.toggle("hidden");
     });
+
+
+    function refreshTopUsers() {
+        const loader = document.getElementById("top-users-loading");
+        const leaderboard = document.getElementById("top-users-list");
+        leaderboard.classList.add("hidden");
+        loader.classList.remove("hidden");
+        topUsersLoaded = false;
+
+        fetch("/api/top-users")
+            .then(response => response.json())
+            .then(users => {
+                leaderboard.innerHTML = "";
+                users.slice(0, 5).forEach((user, idx) => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `
+                    <span class="text-red-500 font-semibold mr-2">${idx + 1}.</span>
+                    <span class="text-red-400">${user.username}</span>
+                    <span class="text-red-500 font-semibold"> — ${user.points} баллов</span>
+                `;
+                    leaderboard.appendChild(li);
+                });
+                loader.classList.add("hidden");
+                leaderboard.classList.remove("hidden");
+                topUsersLoaded = true;
+            })
+            .catch(() => {
+                loader.classList.add("hidden");
+                leaderboard.classList.remove("hidden");
+                leaderboard.innerHTML = "<li class='text-zinc-500'>Не удалось загрузить топ</li>";
+            });
+    }
 </script>
 <footer class="mt-auto w-full bg-zinc-900 text-center py-8 border-t-4 border-red-600 neon-border">
     <h4 class="text-xl font-semibold text-white mb-2">F1 Timeline Project</h4>

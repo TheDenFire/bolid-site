@@ -72,7 +72,15 @@ public class QuestionHandler extends BaseHandler{
                             "✅ Правильный ответ!!! 🎉\nИдём дальше 👉"
                     );
                     answer.setReplyMarkup(AnswerKeyboard.next());
-                    // ... увеличение счета ...
+
+                    User user = userService.findById(userId);
+                    if(user.getScore()!=null){
+                        user.setScore(user.getScore() + 1);
+                    }
+                    else {
+                        user.setScore(1);
+                    }
+                    userService.update(user);
                 } else {
                     answer = createEditMessage(
                             chatId,

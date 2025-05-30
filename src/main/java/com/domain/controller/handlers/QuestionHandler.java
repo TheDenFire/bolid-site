@@ -77,6 +77,7 @@ public class QuestionHandler extends BaseHandler{
                     if(user.getScore()!=null){
                         user.setScore(user.getScore() + 1);
                     }
+
                     else {
                         user.setScore(1);
                     }
